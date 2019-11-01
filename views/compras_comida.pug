@@ -1,0 +1,43 @@
+extends layout
+
+block content
+
+  - if (compras) 
+    .row
+      .col-6
+        form(action='/compras/create' method="POST")
+          .form-group
+            label(for='id_comida') 
+            select#id_tipo.form-control.seleccion.seleccionf(type='select' name='id_comida' required).custom-select
+                option(value="" selected) SELECCIONAR COMIDA
+                - for (let i = 0; i < comida.length; i++)
+                  option(value=`${comida[i].id_comida}`) #{comida[i].id_comida}
+          .form-group
+            label(for='id_dia') 
+            select#id_tipo.form-control.seleccion(type='select' name='id_dia' required).custom-select
+                option(value="" selected) SELECCIONAR DIA
+                - for (let i = 0; i < dias.length; i++)
+                  option(value=`${dias[i].id_dia}`) #{dias[i].dia}
+          button#boton.agregar.bcartelera(type="submit") CREAR COMPRA 
+      .contenedor#contenedor
+        .col-6
+        table#carteleras
+          thead
+            tr
+              th ID
+              th Comida
+              th Día
+              th Editar
+              th Eliminar
+          tbody
+          - for (var i = 0; i < compras.length; i++)
+            tr
+              td #{compras[i].id_fact}
+              td #{compras[i].id_comida}
+              td #{compras[i].id_dia}
+              td
+                  button#editareliminar(type='submit')
+                    i.far.fa-edit.fa-lg
+              td 
+                  button#editareliminar(type='submit')
+                    i.fas.fa-trash-alt.fa-lg

@@ -1,0 +1,67 @@
+extends layout
+
+block content
+
+  .row
+    .col-6
+        form(action='/taquilla/create' method="POST")
+            .form-group
+                label(for='cant_asientos') 
+                input#asientos.form-control.seleccions.seleccionf(type='text' value='' placeholder='cantidad de asientos' name='cant_asientos' required)
+            .form-group
+                label(for='id_funcion') 
+                select#id_tipo.form-control.seleccions(type='select' name='id_funcion' required).custom-select
+                    option(value="" selected) SELECCIONAR FUNCION
+                    - for (let i = 0; i < funciones.length; i++)
+                      option(value=`${funciones[i].id_funcion}`) #{funciones[i].id_funcion}
+            button.ticket(type="submit") GENERAR TICKET 
+    .contenedor
+      .col-6
+      - if (true)
+        table#butacas.tablabutacas
+         - for (var i = 0; i < 8; i++)
+            tr
+                td
+                    #seat.seat(onclick='selectSeat(this)')
+                td
+                    #seat.seat(onclick='selectSeat(this)')
+                td
+                    #seat.seat(onclick='selectSeat(this)')
+                td
+                    #seat.seat(onclick='selectSeat(this)')
+                td
+                    #seat.seat(onclick='selectSeat(this)')
+                td
+                    #seat.seat(onclick='selectSeat(this)')
+                td
+                    #seat.seat(onclick='selectSeat(this)')
+                td 
+                    #seat.seat(onclick='selectSeat(this)')
+                td
+                td
+                td
+                    #seat.seat(onclick='selectSeat(this)')
+                td
+                    #seat.seat(onclick='selectSeat(this)')
+                td
+                    #seat.seat(onclick='selectSeat(this)')
+                td  
+                    #seat.seat(onclick='selectSeat(this)')
+                td
+                    #seat.seat(onclick='selectSeat(this)')
+                td  
+                    #seat.seat(onclick='selectSeat(this)')
+                td
+                    #seat.seat(onclick='selectSeat(this)')
+                td  
+                    #seat.seat(onclick='selectSeat(this)')
+        .pantalla
+        .selected.selecinfo 
+            .info seleccionados.
+        .reserv.selecreserv
+            .info reservados.
+        .seat.selecreserv
+            .info disponibles.
+
+
+               

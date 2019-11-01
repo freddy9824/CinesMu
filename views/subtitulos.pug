@@ -1,0 +1,46 @@
+extends layout
+
+block content
+
+  - if (subtitulos) 
+    .row
+      .col-6
+        .nav
+          ul
+            li
+              a#ab(href="/carteleras") Carteleras
+        form(action='/subtitulos/create' method="POST")
+          .form-group
+            label(for='id_cartelera') 
+            select#seleccionf.form-control.seleccion.seleccionf(type='select' name='id_cartelera' required).custom-select
+                option(value="" selected) SELECCIONAR CARTELERA
+                - for (let i = 0; i < carteleras.length; i++)
+                  option(value=`${carteleras[i].id_cartelera}`) #{carteleras[i].id_cartelera}
+          .form-group
+            label(for='subtitulos') 
+            select#ubicacion.form-control.seleccion(type='select' name='subtitulos' required).custom-select
+                option(value="" selected) SELECCIONAR SUBTÍTULOS
+                  option(value='Español') Español
+                  option(value='Inglés') Inglés
+                  option(value='Ninguno') Ninguno
+          button#boton.agregar.bcartelera(type="submit") AGREGAR SUBTITULOS
+      .contenedor#contenedor
+        .col-6
+        table#carteleras
+          thead
+            tr
+              th Cartelera
+              th Subtítulo
+              th Editar
+              th Eliminar
+          tbody
+          - for (var i = 0; i < subtitulos.length; i++)
+            tr
+              td #{subtitulos[i].id_cartelera}
+              td #{subtitulos[i].subtitulos}
+              td
+                  button#editareliminar(type='submit')
+                    i.far.fa-edit.fa-lg
+              td 
+                  button#editareliminar(type='submit')
+                    i.fas.fa-trash-alt.fa-lg

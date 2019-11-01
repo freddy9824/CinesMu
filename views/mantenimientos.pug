@@ -1,0 +1,64 @@
+extends layout
+
+block content
+
+  - if (mantenimientos) 
+    .row
+      .col-6
+        form(action='/mantenimiento/create' method="POST")
+          .form-group
+            label(for='id_sala')
+            select.form-control.seleccions.salaf(type='select' name='id_sala' required)
+                option(value="" selected) SELECCIONAR SALA
+                - for (let i = 0; i < salas.length; i++)
+                  option(value=`${salas[i].id_sala}`) #{salas[i].id_sala}
+          .form-group
+            label(for='horario_inicio') 
+            select#horario_inicio.form-control.seleccion(type='select' name='horario_inicio' required).custom-select
+                option(value="" selected) SELECCIONAR HORARIO DE INICIO 
+                  option(value='12:00') 12:00
+                  option(value='01:00') 01:00
+                  option(value='02:00') 02:00
+                  option(value='03:00') 03:00
+                  option(value='04:00') 04:00
+          .form-group
+            label(for='horario_fin') 
+            select#horario_fin.form-control.seleccion(type='select' name='horario_fin' required).custom-select
+                option(value="" selected) SELECCIONAR HORARIO FINAL
+                  option(value='01:00') 01:00
+                  option(value='02:00') 02:00
+                  option(value='03:00') 03:00
+                  option(value='04:00') 04:00
+                  option(value='05:00') 05:00
+          button.agregar.bsala(type="submit") AGREGAR MANTENIMIENTO
+
+      .contenedor#contenedor
+        .col-6
+        .ver Haga click en el ID de la sala para ver información de la sala. 
+        table#salas
+          thead
+            tr
+              th ID
+              th Sala
+              th Horario inicio
+              th Horario fin
+              th Editar
+              th Eliminar
+          tbody
+          - for (var i = 0; i < mantenimientos.length; i++)
+            tr
+              td #{mantenimientos[i].id_ms}
+              td
+                form(action=`/mantenimiento/ver/sala/${mantenimientos[i].id_sala}`,method="GET")
+                  button#editareliminar(type='submit') 
+                    #{mantenimientos[i].id_sala}
+              td #{mantenimientos[i].horario_inicio}
+              td #{mantenimientos[i].horario_fin}
+              td
+                form(action=`/salas/${salas[i].id_sala}`,method="GET")
+                  button#editareliminar(type='submit')
+                    i.far.fa-edit.fa-lg
+              td 
+                form(action=`mantenimiento/delete/${mantenimientos[i].id_ms}`,method="POST")
+                  button#editareliminar(type='submit')
+                    i.fas.fa-trash-alt.fa-lg

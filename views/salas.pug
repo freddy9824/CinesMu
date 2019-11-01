@@ -1,0 +1,173 @@
+extends layout
+
+block content
+
+  - if (salas) 
+    .row
+      .col-6
+        .nav
+          ul
+            li
+              a#ab(href="/mantenimiento") Salas en mantenimiento 
+            li
+              a#ab(href="#") Mapa de la sala 
+        form(action='/salas/create' method="POST")
+          .form-group
+            label(for='id_sede') 
+            select#id_sede.form-control.seleccions.salaf(type='select' name='id_sede' required).custom-select
+                option(value="" selected) SELECCIONAR SEDE
+                - for (let i = 0; i < sedes.length; i++)
+                  option(value=`${sedes[i].id_sede}`) #{sedes[i].ubicacion}
+          .form-group
+            label(for='cant_asientos') 
+            select#id_tipo.form-control.seleccions(type='select' name='cant_asientos' required).custom-select
+                option(value="" selected) SELECCIONAR CANTIDAD DE ASIENTOS
+                  option(value=30) 30
+                  option(value=40) 40
+                  option(value=50) 50
+          .form-group
+            label(for='tipo_sala') 
+            select#id_tipo.form-control.seleccions(type='select' name='tipo_sala' required).custom-select
+                option(value="" selected) SELECCIONAR TIPO DE SALA
+                  option(value='Normal') Normal
+                  option(value='Premium') Premium
+          .form-group
+            label(for='tipo_repro') 
+            select#id_tipo.form-control.seleccions(type='select' name='tipo_repro' required).custom-select
+                option(value="" selected) SELECCIONAR TIPO DE REPRODUCCION
+                  option(value='Normal') Normal
+                  option(value='3D') 3D
+                  option(value='4D') 4D
+                  option(value='iMax') iMax
+                  option(value='Atmos') Atmos
+          .form-group
+            label(for='disponible') 
+            select#id_tipo.form-control.seleccions(type='select' name='disponible' required).custom-select
+                option(value="" selected) SELECCIONAR DISPONIBILIDAD
+                  option(value=1) Disponible
+                  option(value=0) No disponible
+          button.agregar.bsala(type="submit") AGREGAR SALA
+      .contenedor#contenedor
+        .col-6
+        .ver Haga click en el ID de la sede para ver información de la sede. 
+        table#salas
+          thead
+            tr
+              th ID
+              th Sede
+              th Cantidad de asientos
+              th Disponible
+              th Tipo de Sala
+              th Tipo de Reproducción
+              th Editar
+              th Eliminar
+          tbody
+          - for (var i = 0; i < salas.length; i++)
+            - for(let j = 0; j < tipos_repro.length; j++)
+              - if(salas[i].id_sala == tipos_repro[j].id_sala)
+                tr
+                  td #{salas[i].id_sala}
+                  td
+                    form(action=`/salas/ver/sede/${salas[i].id_sede}`,method="GET")
+                      button#editareliminar(type='submit') 
+                        #{salas[i].id_sede}
+                  td #{salas[i].cant_asientos}
+                  td #{salas[i].disponible}
+                  td #{salas[i].tipo_sala}
+                  td #{tipos_repro[j].tipo_repro}
+                  td
+                    form(action=`/salas/${salas[i].id_sala}`,method="GET")
+                      button#editareliminar(type='submit')
+                        i.far.fa-edit.fa-lg
+                  td 
+                    form(action=`salas/delete/${salas[i].id_sala}`,method="POST")
+                      button#editareliminar(type='submit')
+                        i.fas.fa-trash-alt.fa-lg
+  - if (sala)  
+    .row
+      .col-6
+        form(action=`/salas/update/${sala[0].id_sala}` method="POST")
+          .form-group
+            label(for='id_sede') 
+            select#id_sede.form-control.seleccions.salaf(type='select' name='id_sede' required).custom-select
+                option(value="" selected) SELECCIONAR SEDE
+                - for (let i = 0; i < sedes.length; i++)
+                  option(value=`${sedes[i].id_sede}`) #{sedes[i].ubicacion}
+          .form-group
+            label(for='cant_asientos') 
+            select#id_tipo.form-control.seleccions(type='select' name='cant_asientos' required).custom-select
+                option(value="" selected) SELECCIONAR CANTIDAD DE ASIENTOS
+                  option(value=30) 30
+                  option(value=40) 40
+                  option(value=50) 50
+          .form-group
+            label(for='tipo_sala') 
+            select#id_tipo.form-control.seleccions(type='select' name='tipo_sala' required).custom-select
+                option(value="" selected) SELECCIONAR TIPO DE SALA
+                  option(value=1) Normal
+                  option(value=2) Premium
+          .form-group
+            label(for='tipo_repro') 
+            select#id_tipo.form-control.seleccions(type='select' name='tipo_repro' required).custom-select
+                option(value="" selected) SELECCIONAR TIPO DE REPRODUCCION
+                  option(value=1) Normal
+                  option(value=2) 3D
+                  option(value=3) 4D
+                  option(value=4) iMax
+                  option(value=5) Atmos
+          .form-group
+            label(for='disponible') 
+            select#id_tipo.form-control.seleccions(type='select' name='disponible' required).custom-select
+                option(value="" selected) SELECCIONAR DISPONIBILIDAD
+                  option(value=1) Disponible
+                  option(value=0) No disponible
+          button#boton.agregar.bsala(type="submit") EDITAR SALA
+      .contenedor#contenedor
+        .col-6
+        table#salas
+          thead
+            tr
+              th ID
+              th Sede
+              th Cantidad de asientos
+              th Disponible
+              th Tipo de Reproducción
+              th Tipo de Sala
+          tbody
+          - for (var i = 0; i < sala.length; i++)
+            - for(let j = 0; j < tipos_repro.length; j++)
+              - if(sala[i].id_sala == tipos_repro[j].id_sala)
+                tr
+                  td #{sala[i].id_sala}
+                  td #{sala[i].id_sede}
+                  td #{sala[i].cant_asientos}
+                  td #{sala[i].disponible}
+                  td #{sala[i].tipo_sala}
+                  td #{tipos_repro[j].tipo_repro}
+  - if (sede)
+      .row
+        .col-6
+        .contenedor#contenedor
+          .col-6
+          table#salas.vertabla
+            thead
+              tr
+                th ID
+                th Estado
+                th Ciudad
+                th Ubicación
+                th Nombre fiscal
+                th Horario llegada
+                th Horario salida
+                th Cantidad de salas
+            tbody
+            - for (var i = 0; i < sede.length; i++)
+              tr
+                td #{sede[i].id_sede}
+                td #{sede[i].estado}
+                td #{sede[i].ciudad}
+                td #{sede[i].ubicacion}
+                td #{sede[i].nombre_fiscal}
+                td #{sede[i].horario_llegada}
+                td #{sede[i].horario_salida}
+                td #{sede[i].cant_salas}

@@ -1,0 +1,127 @@
+extends layout
+
+block content
+
+  - if (funciones) 
+    .row
+      .col-6
+        .nav
+          ul
+            li
+              a#ab(href="/generos") Días funciones
+        form(action='/funciones/create' method="POST")
+          .form-group
+            label(for='id_cartelera') 
+            select#id_tipo.form-control.seleccion.seleccionf(type='select' name='id_cartelera' required).custom-select
+                option(value="" selected) SELECCIONAR CARTELERA
+                - for (let i = 0; i < carteleras.length; i++)
+                  option(value=`${carteleras[i].id_cartelera}`) #{carteleras[i].id_cartelera}
+          .form-group
+            label(for='id_dia') 
+            select#id_tipo.form-control.seleccion(type='select' name='id_dia' required).custom-select
+                option(value="" selected) SELECCIONAR DIA
+                - for (let i = 0; i < dias.length; i++)
+                  option(value=`${dias[i].id_dia}`) #{dias[i].dia}
+          .form-group
+            label(for='horario_inicio') 
+            select#id_tipo.form-control.seleccion(type='select' name='horario_inicio' required).custom-select
+                option(value="" selected) SELECCIONAR HORARIO DE INICIO 
+                  option(value='12:00') 12:00
+                  option(value='01:00') 01:00
+                  option(value='02:00') 02:00
+                  option(value='03:00') 03:00
+                  option(value='04:00') 04:00
+            .form-group
+            label(for='horario_final') 
+            select#id_tipo.form-control.seleccion(type='select' name='horario_final' required).custom-select
+                option(value="" selected) SELECCIONAR HORARIO FINAL
+                  option(value='01:00') 01:00
+                  option(value='02:00') 02:00
+                  option(value='03:00') 03:00
+                  option(value='04:00') 04:00
+                  option(value='05:00') 05:00
+            .form-group
+            label(for='id_sala') 
+            input.form-control.seleccion.selecsala(type='text' placeholder='ID de la sala' name='id_sala' required)
+          button#boton.agregar.bcartelera(type="submit") CREAR FUNCION 
+      .contenedor#contenedor
+        .col-6
+        table#carteleras
+          thead
+            tr
+              th ID
+              th Cartelera
+              th Horario inicio
+              th Horario final
+              th Sala
+              th Editar
+              th Eliminar
+          tbody
+          - for (var i = 0; i < funciones.length; i++)
+            tr
+              td #{funciones[i].id_funcion}
+              td #{funciones[i].id_cartelera}
+              td #{funciones[i].horario_inicio}
+              td #{funciones[i].horario_final}
+              td #{funciones[i].id_sala}
+              td
+                form(action=`/funciones/${funciones[i].id_funcion}`,method="GET")
+                  button#editareliminar(type='submit')
+                    i.far.fa-edit.fa-lg
+              td 
+                form(action=`funciones/delete/${funciones[i].id_funcion}`,method="POST")
+                  button#editareliminar(type='submit')
+                    i.fas.fa-trash-alt.fa-lg
+  - if (funcion)  
+    .row
+      .col-6
+        form(action=`/funciones/update/${funcion[0].id_funcion}` method="POST")
+          .form-group
+            label(for='id_sede') 
+            select#id_tipo.form-control.seleccion.seleccionf(type='select' name='id_sede' required).custom-select
+                option(value="" selected) SELECCIONAR SEDE
+                - for (let i = 0; i < sedes.length; i++)
+                  option(value=`${sedes[i].id_sede}`) #{sedes[i].ubicacion}
+          .form-group
+            label(for='id_dia') 
+            select#id_tipo.form-control.seleccion(type='select' name='id_dia' required).custom-select
+                option(value="" selected) SELECCIONAR DIA
+                - for (let i = 0; i < dias.length; i++)
+                  option(value=`${dias[i].id_dia}`) #{dias[i].dia}
+          .form-group
+            label(for='horario_inicio') 
+            select#id_tipo.form-control.seleccion(type='select' name='horario_inicio' required).custom-select
+                option(value="" selected) SELECCIONAR HORARIO DE INICIO 
+                  option(value='12:00') 12:00
+                  option(value='01:00') 01:00
+                  option(value='02:00') 02:00
+                  option(value='03:00') 03:00
+                  option(value='04:00') 04:00
+            .form-group
+            label(for='horario_final') 
+            select#id_tipo.form-control.seleccion(type='select' name='horario_final' required).custom-select
+                option(value="" selected) SELECCIONAR HORARIO FINAL
+                  option(value='01:00') 01:00
+                  option(value='02:00') 02:00
+                  option(value='03:00') 03:00
+                  option(value='04:00') 04:00
+                  option(value='05:00') 05:00
+          button#boton.agregar.bcartelera(type="submit") EDITAR FUNCION
+      .contenedor#contenedor
+        .col-6
+        table#carteleras
+          thead
+            tr
+              th ID
+              th Cartelera
+              th Horario inicio
+              th Horario final
+              th Sala
+          tbody
+          - for (var i = 0; i < funcion.length; i++)
+            tr
+              td #{funcion[i].id_funcion}
+              td #{funcion[i].id_cartelera}
+              td #{funcion[i].horario_inicio}
+              td #{funcion[i].horario_final}
+              td #{funcion[i].id_sala}

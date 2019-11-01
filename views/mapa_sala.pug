@@ -1,0 +1,62 @@
+extends layout
+
+block content
+
+  - if (mapa_sala) 
+    .row
+      .col-6
+        .nav
+        form(action='/mapa_sala/create' method="POST")
+          .form-group
+            label(for='id_sala') 
+            select#id_sede.form-control.seleccions.salaf(type='select' name='id_sala' required).custom-select
+                option(value="" selected) SELECCIONAR SALA
+                - for (let i = 0; i < salas.length; i++)
+                  option(value=`${salas[i].id_sala}`) #{salas[i].id_sala}
+          .form-group
+            label(for='cant_entradas') 
+            select#id_tipo.form-control.seleccions(type='select' name='cant_entradas' required).custom-select
+                option(value="" selected) SELECCIONAR CANTIDAD DE ENTRADAS
+                  option(value=1) 1
+                  option(value=2) 2
+          .form-group
+            label(for='cant_salidas') 
+            select#id_tipo.form-control.seleccions(type='select' name='cant_salidas' required).custom-select
+                option(value="" selected) SELECCIONAR CANTIDAD DE SALIDAS
+                  option(value=1) 1
+                  option(value=2) 2
+          .form-group
+            label(for='num_fila') 
+            select#id_tipo.form-control.seleccions(type='select' name='num_fila' required).custom-select
+                option(value="" selected) SELECCIONAR NÚMERO DE FILAS
+                  option(value=64) 64
+                  option(value=20) 20
+                  option(value=81) 81
+          .form-group
+            label(for='num_col') 
+            select#id_tipo.form-control.seleccions(type='select' name='num_col' required).custom-select
+                option(value="" selected) SELECCIONAR NÚMERO DE COLUMNAS
+                  option(value=64) 64
+                  option(value=20) 20
+          button.agregar.bsala(type="submit") AGREGAR MAPA 
+      .contenedor#contenedor
+        .col-6
+        .ver Haga click en el ID de la sede para ver información de la sede. 
+        table#salas
+          thead
+            tr
+              th ID
+              th Sede
+              th Cantidad de asientos
+              th Disponible
+              th Tipo de Sala
+              th Tipo de Reproducción
+          tbody
+          - for (var i = 0; i < mapa_sala.length; i++)
+            tr
+                td #{mapa_sala[i].id_mapa}
+                td #{mapa_sala[i].id_sala}
+                td #{mapa_sala[i].num_fila}
+                td #{mapa_sala[i].num_col}
+                td #{mapa_sala[i].cant_entradas}
+                td #{mapa_sala[i].cant_salidas}

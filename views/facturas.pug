@@ -1,0 +1,44 @@
+extends layout
+
+block content
+
+  - if (true) 
+    .row
+      .col-6
+        .nav
+        form(action='/facturas/create' method="POST")
+          .form-group
+            label(for='id_sede') 
+            select#seleccionf.form-control.seleccion.seleccionf(type='select' name='id_sede' required).custom-select
+                option(value="" selected) SELECCIONAR SEDE
+                - for (let i = 0; i < sedes.length; i++)
+                  option(value=`${sedes[i].id_sede}`) #{sedes[i].ubicacion}
+          .form-group
+            label(for='id_fact') 
+            select#seleccionf.form-control.seleccion(type='select' name='id_fact' required).custom-select
+                option(value="" selected) SELECCIONAR COMPRA DE COMIDA
+                - for (let i = 0; i < compras.length; i++)
+                  option(value=`${compras[i].id_fact}`) #{compras[i].id_fact}  
+          .form-group
+            label(for='fecha') 
+            input.form-control.seleccion(type='text' placeholder='fecha'  name='fecha' required)
+          button#boton.agregar.bcartelera(type="submit") CREAR FACTURA
+        form(action='/facturas/create' method="POST")
+          .form-group
+            label(for='id_sede') 
+            select#seleccionf.form-control.seleccion.seleccionf(type='select' name='id_sede' required).custom-select
+                option(value="" selected) SELECCIONAR SEDE
+                - for (let i = 0; i < sedes.length; i++)
+                  option(value=`${sedes[i].id_sede}`) #{sedes[i].ubicacion}
+          .form-group
+            label(for='id_fact') 
+            select#seleccionf.form-control.seleccion(type='select' name='id_fact' required).custom-select
+                option(value="" selected) SELECCIONAR TICKET
+                - for (let i = 0; i < tickets.length; i++)
+                  option(value=`${tickets[i].id_fact}`) #{tickets[i].id_fact}  
+          .form-group
+            label(for='fecha') 
+            input.form-control.seleccion(type='text' placeholder='fecha'  name='fecha' required)
+          button#boton.agregar.bcartelera(type="submit") CREAR FACTURA
+      .contenedor#contenedor
+        .col-6

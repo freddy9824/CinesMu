@@ -1,0 +1,122 @@
+extends layout
+
+block content
+
+  - if (sedes) 
+    .row
+      .col-6
+        .nav
+          ul
+            li
+              a#ab(href="/funciones") Funciones
+            li 
+              a#ab(href="/carteleras") Cartelera 
+            li 
+              a#ab(href="/reportes") Reportes
+        form(action='/sedes/create' method="POST")
+          .form-group
+            label(for='estado') 
+            input#titulo.form-control.sede(type='text' placeholder='estado'  name='estado' required)
+          .form-group
+            label(for='ciudad') 
+            input#seleccionp.form-control.sede(type='text' placeholder='ciudad'  name='ciudad' required)
+          .form-group
+            label(for='ubicacion') 
+            input#seleccionp.form-control.sede(type='text' placeholder='ubicacion'  name='ubicacion' required)
+          .form-group
+            label(for='nombre_fiscal') 
+            input#seleccionp.form-control.sede(type='text' placeholder='nombre fiscal'  name='nombre_fiscal' required)
+          .form-group
+            label(for='horario_llegada') 
+            input#seleccionp.form-control.sede(type='text' placeholder='horario llegada'  name='horario_llegada' required)
+          .form-group
+            label(for='horario_salida') 
+            input#seleccionp.form-control.sede(type='text' placeholder='horario salida'  name='horario_salida' required)
+          .form-group
+            label(for='cant_salas') 
+            input#seleccionp.form-control.sede(type='text' placeholder='cant salas'  name='cant_salas' required)
+          button#boton.agregar.bsede(type="submit") AGREGAR SEDE
+      .contenedor#contenedor
+        .col-6
+        table#sedes.vertabla
+          thead
+            tr
+              th ID
+              th Estado
+              th Ciudad 
+              th Ubicación
+              th Nombre fiscal
+              th Horario llegada
+              th Horario salida
+              th Cantidad de salas
+              th Editar
+              th Eliminar
+          tbody
+          - for (var i = 0; i < sedes.length; i++)
+            tr
+              td #{sedes[i].id_sede}
+              td #{sedes[i].estado}
+              td #{sedes[i].ciudad}
+              td #{sedes[i].ubicacion}
+              td #{sedes[i].nombre_fiscal}
+              td #{sedes[i].horario_llegada}
+              td #{sedes[i].horario_salida}
+              td #{sedes[i].cant_salas}
+              td
+                form(action=`/sedes/${sedes[i].id_sede}`,method="GET")
+                  button#editareliminar(type='submit')
+                    i.far.fa-edit.fa-lg
+              td 
+                form(action=`sedes/delete/${sedes[i].id_sede}`,method="POST")
+                  button#editareliminar(type='submit')
+                    i.fas.fa-trash-alt.fa-lg
+  - if (sede)  
+    .row
+      .col-6
+        form(action=`/sedes/update/${sede[0].id_sede}` method="POST")
+          .form-group
+            label(for='estado') 
+            input#titulo.form-control.sede(type='text' value=`${sede[0].estado}` placeholder='estado'  name='estado' required)
+          .form-group
+            label(for='ciudad') 
+            input#seleccionp.form-control.sede(type='text' value=`${sede[0].ciudad}` placeholder='ciudad'  name='ciudad' required)
+          .form-group
+            label(for='ubicacion') 
+            input#seleccionp.form-control.sede(type='text'  value=`${sede[0].ubicacion}` placeholder='ubicacion'  name='ubicacion' required)
+          .form-group
+            label(for='nombre_fiscal') 
+            input#seleccionp.form-control.sede(type='text' value=`${sede[0].nombre_fiscal}` placeholder='nombre fiscal'  name='nombre_fiscal' required)
+          .form-group
+            label(for='horario_llegada') 
+            input#seleccionp.form-control.sede(type='text'  value=`${sede[0].horario_llegada}` placeholder='horario llegada'  name='horario_llegada' required)
+          .form-group
+            label(for='horario_salida') 
+            input#seleccionp.form-control.sede(type='text'  value=`${sede[0].horario_salida}` placeholder='horario salida'  name='horario_salida' required)
+          .form-group
+            label(for='cant_salas') 
+            input#seleccionp.form-control.sede(type='text' value=`${sede[0].cant_salas}` placeholder='cant salas' name='cant_salas' required)
+          button#boton.agregar.bsede(type="submit") EDITAR SEDE
+      .contenedor#contenedor
+        .col-6
+        table#sedes.vertabla
+          thead
+            tr
+              th ID
+              th Estado
+              th Ciudad 
+              th Ubicación
+              th Nombre fiscal
+              th Horario llegada
+              th Horario salida
+              th Cantidad de salas
+          tbody
+          - for (var i = 0; i < sede.length; i++)
+            tr
+              td #{sede[i].id_sede}
+              td #{sede[i].estado}
+              td #{sede[i].ciudad}
+              td #{sede[i].ubicacion}
+              td #{sede[i].nombre_fiscal}
+              td #{sede[i].horario_llegada}
+              td #{sede[i].horario_salida}
+              td #{sede[i].cant_salas}

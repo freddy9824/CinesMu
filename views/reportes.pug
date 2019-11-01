@@ -1,0 +1,38 @@
+extends layout
+
+block content
+
+  - if (ventasPeliculas) 
+    .row
+      .col-6 
+      .contenedor#contenedor
+        .col-6
+        table#comida
+          thead
+            tr
+              th Cantidad ventas
+              th Título
+              th Estado
+              th Ciudad
+              th Ubicación
+          tbody
+          - for (var i = 0; i < ventasPeliculas.length; i++)
+            tr
+              td #{ventasPeliculas[i].cantidad}
+              td #{ventasPeliculas[i].titulo}
+              td #{ventasPeliculas[i].estado}
+              td #{ventasPeliculas[i].ciudad}
+              td #{ventasPeliculas[i].ubicacion}
+        table#comida
+          thead
+            tr
+              th Cantidad ventas
+              th Nombre producto
+              th Día
+          tbody
+          - for (var i = 0; i < productos.length; i++)
+            tr
+              td #{productos[i].cantidad}
+              td #{productos[i].nombre}
+              td #{productos[i].dia}
+              

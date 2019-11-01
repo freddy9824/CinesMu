@@ -1,0 +1,21 @@
+extends layout
+
+block content
+
+  - if (true) 
+    .row
+      .col-6
+      .contenedor#contenedor
+        .col-6
+          form(method='POST', action='/user/register')
+            .form-group
+                input#register.form-control(name='name', type='text')
+            .form-group
+                input#register.form-control(name='email', type='text')
+            .form-group
+                input#register.form-control(name='username',type='text')
+            .form-group
+                input#register.form-control(name='password',type='password')
+            .form-group
+                input#register.form-control(name='password2',type='password')
+            button(type="submit") REGISTER

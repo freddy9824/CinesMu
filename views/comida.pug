@@ -1,0 +1,49 @@
+extends layout
+
+block content
+
+  - if (comida) 
+    .row
+      .col-6
+        .nav
+          ul
+            li
+              a#ab(href="/compras") Compras 
+            li
+              a#ab(href="/combosc") Combos 
+        form(action='/comida/create' method="POST")
+          .form-group
+            label(for='id_categoria') 
+            select.form-control.seleccionp.seleccionf.seleccionc(type='select' name='id_categoria' required).custom-select
+                option(value="" selected) SELECCIONAR CATEGORÍA
+                  option(value=1) Comida
+                  option(value=2) Bebida
+                  option(value=3) Chucheria
+          .form-group
+            label(for='nombre_comida') 
+            input#seleccionp.form-control.seleccionc(type='text' placeholder='nombre' name='nombre_comida' required)        
+          button#boton.agregar.comida(type="submit") AGREGAR COMIDA
+      .contenedor#contenedor
+        .col-6
+        table#comida
+          thead
+            tr
+              th ID
+              th Categoria
+              th Comida 
+              th Editar
+              th Eliminar
+          tbody
+          - for (var i = 0; i < comida.length; i++)
+            tr
+              td #{comida[i].id_comida}
+              td #{comida[i].id_categoria}
+              td #{comida[i].nombre_comida}
+              td  
+                  form(action=`/comida/${comida[i].id_comida}`,method="GET")
+                  button#editareliminar(type='submit')
+                    i.far.fa-edit.fa-lg
+              td 
+                form(action=`/comida/delete/${comida[i].id_comida}`,method="POST")
+                  button#editareliminar(type='submit')
+                    i.fas.fa-trash-alt.fa-lg

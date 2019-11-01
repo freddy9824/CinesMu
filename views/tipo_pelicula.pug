@@ -1,0 +1,35 @@
+extends layout
+
+block content
+
+  - if (idiomas) 
+    .row
+      .col-6
+        .nav
+        form(action='/idiomas/create' method="POST")
+          .form-group
+            label(for='idioma') 
+            input#titulo.form-control.idiomas(type='text' placeholder='idioma' name='idioma' required)
+          button#boton.agregar.bidiomas(type="submit") AGREGAR IDIOMA
+      .contenedor#contenedor
+        .col-6
+        table#idiomas
+          thead
+            tr
+              th ID
+              th Idioma 
+              th Editar
+              th Eliminar
+          tbody
+          - for (var i = 0; i < idiomas.length; i++)
+            tr
+              td #{idiomas[i].id_idioma}
+              td #{idiomas[i].idioma}
+              td
+                form(action=`/idiomas/${idiomas[i].id_idioma}`,method="GET")
+                  button#editareliminar(type='submit')
+                    i.far.fa-edit.fa-lg
+              td 
+                form(action=`/idiomas/delete/${idiomas[i].id_idioma}`,method="POST")
+                  button#editareliminar(type='submit')
+                    i.fas.fa-trash-alt.fa-lg

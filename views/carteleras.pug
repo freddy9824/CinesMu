@@ -1,0 +1,56 @@
+extends layout
+
+block content
+
+  - if (true) 
+    .row
+      .col-6
+        .nav
+          ul
+            li
+              a#ab(href="/idiomas") Idiomas
+            li
+              a#ab(href="/subtitulos") Subtítulos
+            li
+              a#ab(href="/peliculasc") Películas
+        form(action='/carteleras/create' method="POST")
+          .form-group
+            label(for='id_sede') 
+            select#seleccionf.form-control.seleccion.seleccionf(type='select' name='id_sede' required).custom-select
+                option(value="" selected) SELECCIONAR SEDE
+                - for (let i = 0; i < sedes.length; i++)
+                  option(value=`${sedes[i].id_sede}`) #{sedes[i].ubicacion}
+          .form-group
+            label(for='id_censura') 
+            select#ubicacion.form-control.seleccion(type='select' name='id_censura' required).custom-select
+                option(value="" selected) SELECCIONAR CENSURA
+                  option(value=1) A
+                  option(value=2) B
+                  option(value=3) C
+                  option(value=4) D
+          button#boton.agregar.bcartelera(type="submit") AGREGAR CARTELERA
+      .contenedor#contenedor
+        .col-6
+        table#carteleras
+          thead
+            tr
+              th ID
+              th Sede
+              th Censura 
+              th Editar
+              th Eliminar
+          tbody
+          - for (var i = 0; i < carteleras.length; i++)
+            tr
+              td #{carteleras[i].id_cartelera}
+              td #{carteleras[i].id_sede}
+              td #{carteleras[i].censura}
+              td
+                  button#editareliminar(type='submit')
+                    i.far.fa-edit.fa-lg
+              td 
+                  button#editareliminar(type='submit')
+                    i.fas.fa-trash-alt.fa-lg
+
+
+

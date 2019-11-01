@@ -1,0 +1,46 @@
+extends layout
+
+block content
+
+  - if (true) 
+    .row
+      .col-6
+        .nav
+          ul
+            li
+              a#ab(href="/carteleras") Carteleras
+        form(action='/peliculasc/create' method="POST")
+          .form-group
+            label(for='id_cartelera') 
+            select#seleccionf.form-control.seleccion.seleccionf(type='select' name='id_cartelera' required).custom-select
+                option(value="" selected) SELECCIONAR CARTELERA
+                - for (let i = 0; i < carteleras.length; i++)
+                  option(value=`${carteleras[i].id_cartelera}`) #{carteleras[i].id_cartelera}
+          .form-group
+            label(for='id_pelicula') 
+            select#ubicacion.form-control.seleccion(type='select' name='id_pelicula' required).custom-select
+                option(value="" selected) SELECCIONAR PELICULA
+                - for (let i = 0; i< peliculas.length; i++)
+                  option(value=`${peliculas[i].id_pelicula}`) #{peliculas[i].titulo}
+          button#boton.agregar.bcartelera(type="submit") AGREGAR PELICULA
+      .contenedor#contenedor
+        .col-6
+        table#carteleras
+          thead
+            tr
+              th Cartelera
+              th Pelicula
+              th Editar
+              th Eliminar
+          tbody
+          - for (var i = 0; i < peliculasc.length; i++)
+            tr
+              td #{peliculasc[i].id_cartelera}
+              td #{peliculasc[i].id_pelicula}
+              td
+                  button#editareliminar(type='submit')
+                    i.far.fa-edit.fa-lg
+              td 
+                  button#editareliminar(type='submit')
+                    i.fas.fa-trash-alt.fa-lg
+

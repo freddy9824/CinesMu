@@ -1,0 +1,43 @@
+extends layout
+
+block content
+
+  - if (generos_pelicula) 
+    .row
+        .col-6
+            .nav
+            form(action='/generos/create' method="POST")
+                .form-group
+                    label(for='genero') 
+                    select.form-control.seleccionp.seleccionf(type='select' name='genero' required).custom-select
+                        option(value="" selected) SELECCIONAR GÉNERO
+                            option(value='Terror') Terror
+                            option(value='Acción') Acción
+                            option(value='Comedia') Comedia
+                .form-group
+                    label(for='id_pelicula') 
+                    select.form-control.seleccionp(type='select' name='id_pelicula' required).custom-select
+                        option(value="" selected) SELECCIONAR PELICULA
+                        - for (let i = 0; i < peliculas.length; i++)
+                            option(value=`${peliculas[i].id_pelicula}`) #{peliculas[i].id_pelicula}
+                button#boton.agregar(type="submit") AGREGAR GÉNERO
+        .contenedor#contenedor
+            .col-6
+            table.vertabla
+                thead
+                    tr
+                        th Género
+                        th Película
+                        th Editar
+                        th Eliminar
+                tbody
+                - for (var i = 0; i < generos_pelicula.length; i++)
+                    tr
+                        td #{generos_pelicula[i].genero}
+                        td #{generos_pelicula[i].id_pelicula}
+                        td
+                            button#editareliminar(type='submit')
+                                i.far.fa-edit.fa-lg
+                        td 
+                            button#editareliminar(type='submit')
+                                i.fas.fa-trash-alt.fa-lg

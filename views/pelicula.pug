@@ -1,0 +1,103 @@
+extends layout
+
+block content
+
+  - if (peliculas) 
+    .row
+      .col-6
+        .nav
+          ul
+            li
+              a#ab(href="/generos") Género 
+        form(action='/pelicula/create' method="POST")
+          .form-group
+            label(for='titulo') 
+            input#titulo.form-control(type='text' placeholder='titulo'  name='titulo' required)
+          .form-group
+            label(for='fecha_estreno') 
+            input#seleccionp.form-control(type='text' placeholder='fecha de estreno'  name='fecha_estreno' required)
+          .form-group
+            label(for='descripcion') 
+            input#seleccionp.form-control(type='text' placeholder='descripcion'  name='descripcion' required)
+          .form-group
+            label(for='duracion') 
+            input#seleccionp.form-control(type='text' placeholder='duracion'  name='duracion' required)
+          button#boton.agregar(type="submit") AGREGAR PELÍCULA
+      .contenedor#contenedor
+        .col-6
+        table.vertabla
+          thead
+            tr
+              th ID
+              th Título
+              th Fecha de estreno
+              th Descripción
+              th Duración
+              th Género 
+              th Editar
+              th Eliminar
+          tbody
+          - for (var i = 0; i < peliculas.length; i++)
+            - for(let j = 0; j < generos_pelicula.length; j++)
+              - if(peliculas[i].id_pelicula == generos_pelicula[j].id_pelicula)
+                tr
+                  td #{peliculas[i].id_pelicula}
+                  td #{peliculas[i].titulo}
+                  td #{peliculas[i].fecha_estreno}
+                  td #{peliculas[i].descripcion}
+                  td #{peliculas[i].duracion}
+                  td #{generos_pelicula[i].genero}
+                  td
+                    form(action=`/pelicula/edit/${peliculas[i].id_pelicula}`,method="GET")
+                      button#editareliminar(type='submit')
+                        i.far.fa-edit.fa-lg
+                  td 
+                    form(action=`/pelicula/delete/${peliculas[i].id_pelicula}`,method="POST")
+                      button#editareliminar(type='submit')
+                        i.fas.fa-trash-alt.fa-lg
+  - if (pelicula)  
+    .row
+      .col-6
+        form(action=`/pelicula/update/${pelicula[0].id_pelicula}` method="POST")
+          .form-group
+            label(for='titulo') 
+            input#titulo.form-control(type='text'  value=`${pelicula[0].titulo}` placeholder='titulo'  name='titulo' required)
+          .form-group
+            label(for='fecha_estreno') 
+            input#seleccionp.form-control(type='text' value=`${pelicula[0].fecha_estreno}` placeholder='fecha de estreno'  name='fecha_estreno' required)
+          .form-group
+            label(for='descripcion') 
+            input#seleccionp.form-control(type='text'  value=`${pelicula[0].descripcion}` placeholder='descripcion'  name='descripcion' required)
+          .form-group
+            label(for='duracion') 
+            input#seleccionp.form-control(type='text'  value=`${pelicula[0].duracion}` placeholder='duracion'  name='duracion' required)
+          .form-group
+            label(for='id_genero') 
+            select.form-control.seleccionp(type='select' name='id_genero' required).custom-select
+                option(value="" selected) SELECCIONAR GÉNERO
+                - for (let i = 0; i < generos.length; i++)
+                  option(value=`${generos[i].id_genero}`) #{generos[i].genero}
+          button#boton.agregar(type="submit") EDITAR PELÍCULA
+      .contenedor#contenedor
+        .col-6
+        table
+          thead
+            tr
+              th ID
+              th Título
+              th Fecha de estreno
+              th Descripción
+              th Duración
+              th Género 
+          tbody
+          - for (var i = 0; i < pelicula.length; i++)
+            tr
+              td #{pelicula[i].id_pelicula}
+              td #{pelicula[i].titulo}
+              td #{pelicula[i].fecha_estreno}
+              td #{pelicula[i].descripcion}
+              td #{pelicula[i].duracion}
+              td #{pelicula[i].id_genero}
+
+
+

@@ -1,0 +1,41 @@
+extends layout
+
+block content
+
+  - if (combos_comida) 
+    .row
+      .col-6 
+        form(action='/combos_comida/create' method="POST")
+          .form-group
+            label(for='id_comida') 
+            select#id_tipo.form-control.seleccion.seleccionf(type='select' name='id_comida' required).custom-select
+                option(value="" selected) SELECCIONAR COMIDA
+                - for (let i = 0; i < comida.length; i++)
+                  option(value=`${comida[i].id_comida}`) #{comida[i].id_comida}
+          .form-group
+            label(for='id_combo') 
+            select#id_tipo.form-control.seleccion(type='select' name='id_combo' required).custom-select
+                option(value="" selected) SELECCIONAR COMBO
+                - for (let i = 0; i < combos.length; i++)
+                  option(value=`${combos[i].id_combo}`) #{combos[i].nombre_combo}
+          button#boton.agregar.comida(type="submit") CREAR COMBO
+      .contenedor#contenedor
+        .col-6
+        table#comida
+          thead
+            tr
+              th Combo
+              th Comida
+              th Editar
+              th Eliminar
+          tbody
+          - for (var i = 0; i < combos_comida.length; i++)
+            tr
+              td #{combos_comida[i].id_combo}
+              td #{combos_comida[i].id_comida}
+              td  
+                  button#editareliminar(type='submit')
+                    i.far.fa-edit.fa-lg
+              td 
+                  button#editareliminar(type='submit')
+                    i.fas.fa-trash-alt.fa-lg
